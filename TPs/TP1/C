@@ -1,0 +1,24 @@
+#funcion que compara dos cadenas para contar cuantas veces
+#esta la segunda dentro de la primera
+
+def compara(una, dos):
+  cont = 0
+  for i in range(len(una)-len(dos)+1):
+    #aqui compara la cadena con un rango de la primera
+    if una[i:i+len(dos)] == dos:
+      cont += 1
+  #regresa el valor en string
+  return str(cont)
+
+#pide a la consola la primera cadena
+print("Dame la primera cadena")
+cad1= input()
+
+#pide al usuario por medio de la consola la segunda cadena
+print("Dame la segunda cadena")
+cad2= input()
+
+#imprime eñ resultado final con formato
+cantidad = compara(cad1,cad2)
+print("cantidad de veces que {} ocurre es: {}".format(cad2, cantidad))
+
