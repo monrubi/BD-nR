@@ -5,16 +5,20 @@ Editor de Spyder
 Este es un archivo temporal.
 """
 
+#inciso A
 #Programa para multiplicar matrices
 
 #Para leer archivos
 import csv
 
 #aquí se pone la direccion del archivo a leer
-
-with open('ejemplo.csv') as csvfile:
-readCSV = csv.reader(csvfile, delimiter=',')
-matrix=[list(map(int, row)) for row in readCSV]
+def csvMatriz(archivoTexto):
+    
+    #abre el archivo de txto que se ha anexado a la carpeta con los polinomios
+    archivo = open(archivoTexto,"r")
+    leerCSV = csv.reader(archivo, delimiter=',')
+    matrix=[list(map(int, row)) for row in leerCSV]
+    return matrix
 
 
 
@@ -36,10 +40,11 @@ def multMtx(mtx1, mtx2):
     return resp
 
 #pruebas
-matx1= [[10, 20, 30], [5, 6, 7], [15, 26, 89]]
+#se deja el codigo de la matriz por si no se tiene acceso al archivo csv
+#matx1= [[10, 20, 30], [5, 6, 7], [15, 26, 89]]
+matx1=csvMatriz('ejemplo.csv')
 matx2 = [[1,2,1],[3,4,3],[5,6,5]]
+
 
 mult=multMtx(matx1,matx2)
 print(mult)
-
-    
