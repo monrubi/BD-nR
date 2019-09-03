@@ -11,11 +11,10 @@ Este es un archivo temporal.
 import csv
 
 #aquí se pone la direccion del archivo a leer
-#se dejó comentado para evitar el error del archivo no encontrado
 
-#with open('matriz.csv') as csvfile:
-#readCSV = csv.reader(csvfile, delimiter=',')
-#matrix=[list(map(int, row)) for row in readCSV]
+with open('ejemplo.csv') as csvfile:
+readCSV = csv.reader(csvfile, delimiter=',')
+matrix=[list(map(int, row)) for row in readCSV]
 
 
 
