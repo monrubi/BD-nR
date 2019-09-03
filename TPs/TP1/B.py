@@ -8,8 +8,10 @@ Created on Tue Sep  3 00:04:10 2019
 #Inciso B
 
 
-#abre el archivo de txto que se ha anexado a la carpeta con los polinomios
-with open('numeros.txt') as archivo:
+def textoPolinomio(archivoTexto):
+    
+    #abre el archivo de txto que se ha anexado a la carpeta con los polinomios
+    archivo = open(archivoTexto,"r")
     #el código se entiende de atrás hacia adelante
     #abre cada fila del archivo de texto
     #separa los caracteres en la opracion agrupando los que estan entre espacios
@@ -18,10 +20,10 @@ with open('numeros.txt') as archivo:
     #el mapa regresa direcciones por lo que se aplica list para volverlo un arreglo
     #se asigna a la variable polinomios para poder aplicarle la funcion
     polinomios = [list(map(float, row.split(' '))) for row in archivo]
+    return polinomios
     
     
-#en caso de que no se tenga acceso al archivo se puede probar el codigo con:
-#polinomios = [[2.5, 3.0, -4.0, 2.0, 6.5, 1.0, 3.0, 4.0, -1.0, -1.0], [-2.0, 2.0, -3.0, 4.0, 9.1, 1.0, 6.9, 8.0, -1.0, -1.0]]
+
     
 
 #lo resuelve con un diccionario, si existe el exponente opera su coeficiente
@@ -47,5 +49,9 @@ def sumarPolinomios(polinomios):
             resp= resp+str(dic[key])+"X^"+str(int(key))
     #se imprime la respuesta 
     print(resp)
+
+polinomios = textoPolinomio('numeros.txt')
+#en caso de que no se tenga acceso al archivo se puede probar el codigo con:
+#polinomios = [[2.5, 3.0, -4.0, 2.0, 6.5, 1.0, 3.0, 4.0, -1.0, -1.0], [-2.0, 2.0, -3.0, 4.0, 9.1, 1.0, 6.9, 8.0, -1.0, -1.0]]
     
 sumarPolinomios(polinomios)
