@@ -9,19 +9,18 @@ use cadenaSupermercados;
 //creacion de tablas 
 create table cliente(
 nombre varchar,
-sucursal varchar,
+sucursal int,
 visita timestamp,
-nomProd varchar,
 producto map <varchar, int>, //<claveProd, cantidad>
 compra map <timestamp, varchar>, //<fecha, nomProd>
 primary key (nombre, (sucursal, visita)));
 
 //insercion de datos iniciales
-insert into cliente (nombre, sucursal, visita) values ('N1', (1, '2019-01-02'));
-insert into cliente (nombre, sucursal, visita) values ('N2', (2, '2019-01-02'));
-insert into cliente (nombre, sucursal, visita) values ('N3', (3, '2019-01-02'));
-insert into cliente (nombre, sucursal, visita) values ('N4', (4, '2019-01-02'));
-insert into cliente (nombre, sucursal, visita) values ('N5', (5, '2019-01-02'));
+insert into cliente (nombre, sucursal, visita) values ('N1', 1, '2019-01-02');
+insert into cliente (nombre, sucursal, visita) values ('N2', 2, '2019-01-02');
+insert into cliente (nombre, sucursal, visita) values ('N3', 3, '2019-01-02');
+insert into cliente (nombre, sucursal, visita) values ('N4', 4, '2019-01-02');
+insert into cliente (nombre, sucursal, visita) values ('N5', 5, '2019-01-02');
 
 
 //insercion de datos en mapas
@@ -42,23 +41,23 @@ create index indiceCompra on cadenaSupermercados.cliente (compra);
 create index indiceNomProd on cadenaSupermercados.cliente (nomProd);
 
 //Consultas
-a. La cantidad total de clientes que acudieron a una sucursal dada en una fecha específica.
+//a. La cantidad total de clientes que acudieron a una sucursal dada en una fecha específica.
 select count(nombre) from cliente where visita='2019-01-02' and sucursal = 1;
 
-b. La cantidad total de clientes que acudieron a todas las sucursales en un día concreto.
+//b. La cantidad total de clientes que acudieron a todas las sucursales en un día concreto.
 select count(nombre) from cliente where visita='2019-01-02';
 
-c. Los productos que adquirió un cliente dado en una fecha dada.
-select compra from cliente where nombre='N1' and visita = '2019-01-02';
+//c. Los productos que adquirió un cliente dado en una fecha dada.
+select compra from cliente where nombre='N1' and visita = '2019-01-02' allow filtering;
 
-d. El nombre de los clientes que acudieron a comprar el mes pasado.
-select nombre from cliente where visita>'2018-12-31' and visita<'2019-02-01';
+//d. El nombre de los clientes que acudieron a comprar el mes pasado.
+select nombre from cliente where visita>'2018-12-31' and visita<'2019-02-01' allow filtering;
 
-e. La cantidad total de productos (tipos, no unidades) que se vendieron en un día concreto.
-select count(indiceCompra) from cliente where visita='2019-01-02';
+//e. La cantidad total de productos (tipos, no unidades) que se vendieron en un día concreto.
+select count(indiceCompra) from cliente where visita='2019-01-02' allow filtering;
 
-f. El nombre de los productos que se vendieron la semana pasada (día inicial: lunes).
-select nomProd from cliente where visita>'2019-09-01' and visita<'2019-09-09';
+//f. El nombre de los productos que se vendieron la semana pasada (día inicial: lunes).
+select nomProd from cliente where visita>'2019-09-01' and visita<'2019-09-09' allow filtering;
 
 //Ejercicio 4 - Tarea 2
 //Crear keyspace para trabajar en base de datos 
