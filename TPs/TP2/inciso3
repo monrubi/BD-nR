@@ -9,10 +9,10 @@ use cadenaSupermercados;
 //creacion de tablas 
 create table cliente(
 nombre varchar,
-sucursal decimal
+sucursal varchar,
 visita timestamp,
 nomProd varchar,
-producto map <varchar, int>, //<nomProd, cantidad>
+producto map <varchar, int>, //<claveProd, cantidad>
 compra map <timestamp, varchar>, //<fecha, nomProd>
 primary key (nombre, (sucursal, visita)));
 
