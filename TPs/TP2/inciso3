@@ -13,7 +13,7 @@ sucursal int,
 visita timestamp,
 producto map <varchar, int>, //<claveProd, cantidad>
 compra map <timestamp, varchar>, //<fecha, nomProd>
-primary key (nombre, (sucursal, visita)));
+primary key ((sucursal, visita),nombre));
 
 //insercion de datos iniciales
 insert into cliente (nombre, sucursal, visita) values ('N1', 1, '2019-01-02');
@@ -36,16 +36,12 @@ update cliente set compra={'2019-01-02':'Tipo3'} where nombre = 'N3' and sucursa
 update cliente set compra={'2019-01-02':'Tipo4'} where nombre = 'N4' and sucursal = 4 and visita = '2019-01-02';
 update cliente set compra={'2019-01-02':'Tipo5'} where nombre = 'N5' and sucursal = 5 and visita = '2019-01-02';
 
-//Creación de indices para consultas
-create index indiceCompra on cadenaSupermercados.cliente (compra);
-create index indiceNomProd on cadenaSupermercados.cliente (nomProd);
-
 //Consultas
 //a. La cantidad total de clientes que acudieron a una sucursal dada en una fecha específica.
-select count(nombre) from cliente where visita='2019-01-02' and sucursal = 1;
+select count(*) from cliente where visita='2019-01-02' and sucursal = 1;
 
 //b. La cantidad total de clientes que acudieron a todas las sucursales en un día concreto.
-select count(nombre) from cliente where visita='2019-01-02';
+select count(*) from cliente where visita='2019-01-02';
 
 //c. Los productos que adquirió un cliente dado en una fecha dada.
 select compra from cliente where nombre='N1' and visita = '2019-01-02' allow filtering;
