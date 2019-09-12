@@ -62,13 +62,40 @@ metodo varchar,
 primary key (nomCliente, producto, fecha)
 );
 
+//tabla 2, fue necesaria para los querys de fechas, ya que si la fecha precedia a producto, no podia ser restringida
+
+//creacion de tablas 
+create table banco2(
+nomCliente varchar, 
+producto varchar,
+fecha timestamp,
+tipoTransaccion varchar,
+monto double,
+metodo varchar,
+primary key (nomCliente, fecha, producto)
+);
+
+
 //insercion de datos iniciales
-insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C1', 'Deposito', 'Cheques', '2019-01-02',263.24,'ventanilla');
-insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C1', 'Retiro', 'TC', '2019-01-02',350.24,'terminal');
-insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C1', 'Deposito', 'Inversiones', '2019-01-02',1230.56,'transferencia');
-insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C2', 'Retiro', 'Cheques', '2019-01-02',800.0,'cajero');
-insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C2', 'Deposito', 'TC', '2019-01-02',1500.0,'ventanilla');
-insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C2', 'Deposito', 'Inversiones', '2019-01-02',600.0,'web');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C1', 'Deposito', 'Cheques', '2019-08-02',263.24,'ventanilla');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C1', 'Retiro', 'TC', '2019-09-02',2350.24,'terminal');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C1', 'Deposito', 'Inversiones', '2019-09-09',1230.56,'transferencia');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C2', 'Retiro', 'Cheques', '2019-06-02',800.0,'cajero');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C2', 'Deposito', 'TC', '2019-04-21',1500.0,'ventanilla');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C2', 'Deposito', 'Inversiones', '2019-05-05',600.0,'web');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C3', 'Deposito', 'TC', '2019-05-05',2700.0,'ventanilla');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C1', 'Deposito', 'Cheques', '2019-05-05',793.0,'web');
+
+//insercion de datos iniciales tabla 2
+insert into banco2 (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C1', 'Deposito', 'Cheques', '2019-08-02',263.24,'ventanilla');
+insert into banco2 (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C1', 'Retiro', 'TC', '2019-09-02',2350.24,'terminal');
+insert into banco2 (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C1', 'Deposito', 'Inversiones', '2019-09-09',1230.56,'transferencia');
+insert into banco2 (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C2', 'Retiro', 'Cheques', '2019-06-02',800.0,'cajero');
+insert into banco2 (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C2', 'Deposito', 'TC', '2019-04-21',1500.0,'ventanilla');
+insert into banco2 (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C2', 'Deposito', 'Inversiones', '2019-05-05',600.0,'web');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C3', 'Deposito', 'TC', '2019-05-05',2700.0,'ventanilla');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C1', 'Deposito', 'Cheques', '2019-05-05',793.0,'web');
+
 
 //Consultas
 a. El tipo de productos que maneja un cliente dado.
@@ -76,12 +103,14 @@ select producto from banco where nomCliente='C1'allow filtering;
 b. La cantidad total de clientes que manejan inversiones.
 select count(*) from banco where producto='Inversiones' allow filtering;
 c. El nombre de los clientes que hicieron depósitos o retiros la semana pasada (día inicial: lunes).
-select nomCliente from banco where fecha>'2019-09-01' and fecha<'2019-09-09';
+select nomCliente from banco2 where fecha>'2019-09-01' and fecha<'2019-09-09' allow filtering;
 d. El nombre de los clientes, y el día, que hicieron retiros superiores a un monto dado.
-select nomCliente, fecha from banco where transaccion.double>2000.00 and tipoTransaccion = 'Retiro';
+create index on bancos.banco(tipotransaccion);
+create index on bancos.banco(monto);
+select nomCliente, fecha from banco where tipotransaccion = 'Retiro' and monto > 2000.00 allow filtering;
 e. Los montos de los depósitos y retiros que se hicieron para un producto dado en un rango de
 fechas.
-select transaccion.double from banco where producto = 'Cheques' and fecha>'2019-09-01' and fecha<'2019-09-09';
+select tipotransaccion, monto from banco where producto = 'Cheques' and fecha>'2019-07-31' and fecha<'2019-09-01' allow filtering;
 f. El nombre de los productos, y del medio, que tuvieron depósitos superiores a un monto
 específico en un día concreto.
-select metodo from banco where transaccion=<'Deposito',monto>2000> and fecha = '2019-02-01';
+select producto, metodo from banco where tipotransaccion='Deposito' and monto>700 and fecha = '2019-05-05' allow filtering;
