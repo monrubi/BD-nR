@@ -72,9 +72,9 @@ insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) 
 
 //Consultas
 a. El tipo de productos que maneja un cliente dado.
-select producto from banco where nomCliente='C1';
+select producto from banco where nomCliente='C1'allow filtering;
 b. La cantidad total de clientes que manejan inversiones.
-select count(nomClientes) from banco where producto='Inversiones';
+select count(*) from banco where producto='Inversiones' allow filtering;
 c. El nombre de los clientes que hicieron depósitos o retiros la semana pasada (día inicial: lunes).
 select nomCliente from banco where fecha>'2019-09-01' and fecha<'2019-09-09';
 d. El nombre de los clientes, y el día, que hicieron retiros superiores a un monto dado.
