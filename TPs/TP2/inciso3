@@ -11,78 +11,37 @@ create table cliente(
 nombre varchar,
 sucursal int,
 visita timestamp,
-producto map <varchar, int>, //<claveProd, cantidad>
-compra map <timestamp, varchar>, //<fecha, nomProd>
-primary key ((sucursal, visita),nombre));
-
-create table cliente2(
-nombre varchar,
-sucursal int,
-visita timestamp,
-producto map <varchar, int>,
-compra map <timestamp, varchar>, //<fecha, nomProd>
-primary key (visita,nombre)
+producto varchar, 
+tipo varchar,
+cantidad int,
+primary key (sucursal, visita,nombre)
 );
 
 //insercion de datos iniciales
-insert into cliente (nombre, sucursal, visita) values ('N1', 1, '2019-01-02');
-insert into cliente (nombre, sucursal, visita) values ('N2', 2, '2019-01-02');
-insert into cliente (nombre, sucursal, visita) values ('N3', 3, '2019-01-02');
-insert into cliente (nombre, sucursal, visita) values ('N4', 4, '2019-01-02');
-insert into cliente (nombre, sucursal, visita) values ('N5', 5, '2019-01-02');
-
-//tabla2
-insert into cliente2 (nombre, sucursal, visita) values ('N1', 1, '2019-01-02');
-insert into cliente2 (nombre, sucursal, visita) values ('N2', 2, '2019-01-02');
-insert into cliente2 (nombre, sucursal, visita) values ('N3', 3, '2019-01-02');
-insert into cliente2 (nombre, sucursal, visita) values ('N4', 4, '2019-01-02');
-insert into cliente2 (nombre, sucursal, visita) values ('N5', 5, '2019-01-02');
-
-
-//insercion de datos en mapas
-update cliente set producto={'Tipo1':10} where nombre = 'N1' and sucursal = 1 and visita = '2019-01-02';
-update cliente set producto={'Tipo2':11} where nombre = 'N2' and sucursal = 2 and visita = '2019-01-02';
-update cliente set producto={'Tipo3':12} where nombre = 'N3' and sucursal = 3 and visita = '2019-01-02';
-update cliente set producto={'Tipo4':13} where nombre = 'N4' and sucursal = 4 and visita = '2019-01-02';
-update cliente set producto={'Tipo5':14} where nombre = 'N5' and sucursal = 5 and visita = '2019-01-02';
-
-update cliente set compra={'2019-01-02':'Tipo1'} where nombre = 'N1' and sucursal = 1 and visita = '2019-01-02';
-update cliente set compra={'2019-01-02':'Tipo2'} where nombre = 'N2' and sucursal = 2 and visita = '2019-01-02';
-update cliente set compra={'2019-01-02':'Tipo3'} where nombre = 'N3' and sucursal = 3 and visita = '2019-01-02';
-update cliente set compra={'2019-01-02':'Tipo4'} where nombre = 'N4' and sucursal = 4 and visita = '2019-01-02';
-update cliente set compra={'2019-01-02':'Tipo5'} where nombre = 'N5' and sucursal = 5 and visita = '2019-01-02';
-
-//tabla 2
-update cliente2 set producto={'Tipo1':10} where nombre = 'N1' and visita = '2019-01-02';
-update cliente2 set producto={'Tipo2':11} where nombre = 'N2' and visita = '2019-01-02';
-update cliente2 set producto={'Tipo3':12} where nombre = 'N3' and visita = '2019-01-02';
-update cliente2 set producto={'Tipo4':13} where nombre = 'N4' and visita = '2019-01-02';
-update cliente2 set producto={'Tipo5':14} where nombre = 'N5' and visita = '2019-01-02';
-
-update cliente2 set compra={'2019-01-02':'Tipo1'} where nombre = 'N1' and visita = '2019-01-02';
-update cliente2 set compra={'2019-01-02':'Tipo2'} where nombre = 'N2' and visita = '2019-01-02';
-update cliente2 set compra={'2019-01-02':'Tipo3'} where nombre = 'N3' and visita = '2019-01-02';
-update cliente2 set compra={'2019-01-02':'Tipo4'} where nombre = 'N4' and visita = '2019-01-02';
-update cliente2 set compra={'2019-01-02':'Tipo5'} where nombre = 'N5' and visita = '2019-01-02';
+insert into cliente (nombre, sucursal, visita, producto, tipo, cantidad) values ('N1', 1, '2019-08-02', 'leche', 'comestibles', 7);
+insert into cliente (nombre, sucursal, visita, producto, tipo, cantidad) values ('N1', 2, '2019-09-09', 'refrigerador', 'electrod', 1);
+insert into cliente (nombre, sucursal, visita, producto, tipo, cantidad) values ('N2', 3, '2019-08-02', 'antipulgas', 'mascotas', 2);
+insert into cliente (nombre, sucursal, visita, producto, tipo, cantidad) values ('N3', 4, '2019-09-07', 'zanahorias', 'comestibles', 4);
+insert into cliente (nombre, sucursal, visita, producto, tipo, cantidad) values ('N4', 5, '2019-09-10', 'kosako', 'comestibles', 1);
 
 //Consultas
 //a. La cantidad total de clientes que acudieron a una sucursal dada en una fecha específica.
-select count(*) from cliente where visita='2019-01-02' and sucursal = 1;
+select count(*) from cliente where visita='2019-08-02' and sucursal = 1;
 
 //b. La cantidad total de clientes que acudieron a todas las sucursales en un día concreto.
-select count(*) from cliente2 where visita='2019-01-02';
+select count(*) from cliente where visita='2019-08-02' allow filtering;
 
 //c. Los productos que adquirió un cliente dado en una fecha dada.
-select compra from cliente2 where nombre='N1' and visita = '2019-01-02' allow filtering;
+select producto, cantidad from cliente where nombre='N1' and visita = '2019-08-02' allow filtering;
 
 //d. El nombre de los clientes que acudieron a comprar el mes pasado.
-select nombre from cliente where visita>'2018-12-31' and visita<'2019-02-01' allow filtering;
+select nombre from cliente where visita>'2019-07-31' and visita<'2019-09-01' allow filtering;
 
 //e. La cantidad total de productos (tipos, no unidades) que se vendieron en un día concreto.
-select count(indiceCompra) from cliente where visita='2019-01-02' allow filtering;
+select count(*) from cliente where visita = '2019-08-02' allow filtering;
 
 //f. El nombre de los productos que se vendieron la semana pasada (día inicial: lunes).
-select nomProd from cliente where visita>'2019-09-01' and visita<'2019-09-09' allow filtering;
+select producto from cliente where visita>='2019-09-02' and visita<'2019-09-09' allow filtering;
 
 //Ejercicio 4 - Tarea 2
 //Crear keyspace para trabajar en base de datos 
@@ -95,12 +54,13 @@ use bancos;
 //creacion de tablas 
 create table banco(
 nomCliente varchar, 
-tipoTransaccion varchar,
 producto varchar,
 fecha timestamp,
-transaccion map <varchar, double>, //<tipoTransaccion, monto>
-metodo map <varchar, varchar>, //<producto,medio>
-primary key ((nomCliente, producto));
+tipoTransaccion varchar,
+monto double,
+metodo varchar,
+primary key (nomCliente, producto, fecha)
+);
 
 //insercion de datos iniciales
 insert into banco (nomCliente, tipoTransaccion, producto, fecha) values ('C1', 'Deposito', 'Cheques', '2019-01-02');
@@ -109,19 +69,6 @@ insert into banco (nomCliente, tipoTransaccion, producto, fecha) values ('C1', '
 insert into banco (nomCliente, tipoTransaccion, producto, fecha) values ('C2', 'Retiro', 'Cheques', '2019-01-02');
 insert into banco (nomCliente, tipoTransaccion, producto, fecha) values ('C2', 'Deposito', 'TC', '2019-01-02');
 insert into banco (nomCliente, tipoTransaccion, producto, fecha) values ('C2', 'Deposito', 'Inversiones', '2019-01-02');
-
-//insercion de datos en mapas
-update banco set transaccion={'Deposito':2016.25} where nomCliente = 'C1' and producto = 'Cheques';
-update banco set transaccion={'Retiro':795.5} where nomCliente = 'C1' and producto = 'TC';
-update banco set transaccion={'Deposito':120456.00} where nomCliente = 'C1' and producto = 'Inversiones';
-update banco set transaccion={'Retiro':74016.75} where nomCliente = 'C2' and producto = 'Cheques';
-update banco set transaccion={'Deposito':3046.00} where nomCliente = 'C2' and producto = 'TC';
-update banco set transaccion={'Deposito':9872.46} where nomCliente = 'C2' and producto = 'Inversiones';
-
-
-//Creación de indices para consultas
-create index indiceMetodo on bancos.banco (metodo);
-create index indiceTransaccion on bancos.banco(transaccion);
 
 //Consultas
 a. El tipo de productos que maneja un cliente dado.
