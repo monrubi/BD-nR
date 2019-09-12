@@ -63,12 +63,12 @@ primary key (nomCliente, producto, fecha)
 );
 
 //insercion de datos iniciales
-insert into banco (nomCliente, tipoTransaccion, producto, fecha) values ('C1', 'Deposito', 'Cheques', '2019-01-02');
-insert into banco (nomCliente, tipoTransaccion, producto, fecha) values ('C1', 'Retiro', 'TC', '2019-01-02');
-insert into banco (nomCliente, tipoTransaccion, producto, fecha) values ('C1', 'Deposito', 'Inversiones', '2019-01-02');
-insert into banco (nomCliente, tipoTransaccion, producto, fecha) values ('C2', 'Retiro', 'Cheques', '2019-01-02');
-insert into banco (nomCliente, tipoTransaccion, producto, fecha) values ('C2', 'Deposito', 'TC', '2019-01-02');
-insert into banco (nomCliente, tipoTransaccion, producto, fecha) values ('C2', 'Deposito', 'Inversiones', '2019-01-02');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C1', 'Deposito', 'Cheques', '2019-01-02',263.24,'ventanilla');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C1', 'Retiro', 'TC', '2019-01-02',350.24,'terminal');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C1', 'Deposito', 'Inversiones', '2019-01-02',1230.56,'transferencia');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C2', 'Retiro', 'Cheques', '2019-01-02',800.0,'cajero');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C2', 'Deposito', 'TC', '2019-01-02',1500.0,'ventanilla');
+insert into banco (nomCliente, tipoTransaccion, producto, fecha, monto, metodo) values ('C2', 'Deposito', 'Inversiones', '2019-01-02',600.0,'web');
 
 //Consultas
 a. El tipo de productos que maneja un cliente dado.
