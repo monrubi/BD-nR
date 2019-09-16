@@ -1,0 +1,38 @@
+//crea la base de datos
+use tarea3
+
+//Crea la colleccion (tabla) cliente
+db.createCollection("cliente");
+
+//crear los documentos (tuplas) para cliente
+c1 = {nombre: 'N1', sucursal: 1, visita: new Date("2019-08-02"), producto: 'leche', tipo: 'comestibles', cantidad: 7};
+c2 = {nombre: 'N2', sucursal: 2, visita: new Date("2019-09-09"), producto: 'refrigerador', tipo: 'electrod', cantidad: 1};
+c3 = {nombre: 'N3', sucursal: 3, visita: new Date("2019-08-02"), producto: 'antipulgas', tipo: 'mascotas', cantidad: 2};
+c4 = {nombre: 'N4', sucursal: 4, visita: new Date("2019-09-07"), producto: 'zanahorias', tipo: 'comestibles', cantidad: 4};
+c5 = {nombre: 'N5', sucursal: 5, visita: new Date("2019-09-10"), producto: 'kosako', tipo: 'comestibles', cantidad: 1};
+
+//insertarlos a la colleccion
+db.cliente.insert(c1);
+db.cliente.insert(c2);
+db.cliente.insert(c3);
+db.cliente.insert(c4);
+db.cliente.insert(c5);
+
+//Consultas
+//a. La cantidad total de clientes que acudieron a una sucursal dada en una fecha específica.
+db.cliente.find({$and:[{visita: new Date("2019-08-02")}, {surcusal: 1]}).count();
+
+//b. La cantidad total de clientes que acudieron a todas las sucursales en un día concreto.
+db.cliente.find({visita: new Date("2019-08-02")).count();
+
+//c. Los productos que adquirió un cliente dado en una fecha dada.
+db.cliente.find({producto},{$and:[{nombre: 'N1'},{visita: new Date("2019-08-02")}].pretty();
+
+//d. El nombre de los clientes que acudieron a comprar el mes pasado.
+db.cliente.find({nombre},{$and:[{visita:{$lt: new Date("2019-09-01")}}.{visita:{$gt: new Date("2019-07-31")}}]).pretty();
+
+//e. La cantidad total de productos (tipos, no unidades) que se vendieron en un día concreto.
+db.cliente.find().count();
+
+//f. El nombre de los productos que se vendieron la semana pasada (día inicial: lunes)
+db.cliente.find().pretty();
