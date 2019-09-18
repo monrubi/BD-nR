@@ -20,10 +20,11 @@ db.cliente.insert(c5);
 
 //Consultas
 //a. La cantidad total de clientes que acudieron a una sucursal dada en una fecha específica.
-db.cliente.find({$and:[{visita: new Date("2019-08-02")}, {surcusal: 1]}).count();
+db.cliente.find({$and:[{visita: new Date("2019-08-02")}, {surcusal: 1}]}).count();
 
+//Este ya salió
 //b. La cantidad total de clientes que acudieron a todas las sucursales en un día concreto.
-db.cliente.find({visita: new Date("2019-08-02")).count();
+db.cliente.find({visita: new Date("2019-08-02")}).count();
 
 //c. Los productos que adquirió un cliente dado en una fecha dada.
 db.cliente.find({producto},{$and:[{nombre: 'N1'},{visita: new Date("2019-08-02")}].pretty();
