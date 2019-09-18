@@ -29,10 +29,14 @@ db.cliente.find({visita: new Date("2019-08-02")).count();
 db.cliente.find({producto},{$and:[{nombre: 'N1'},{visita: new Date("2019-08-02")}].pretty();
 
 //d. El nombre de los clientes que acudieron a comprar el mes pasado.
-db.cliente.find({nombre},{$and:[{visita:{$lt: new Date("2019-09-01")}}.{visita:{$gt: new Date("2019-07-31")}}]).pretty();
+db.cliente.find({nombre},{$and:[{visita:{$lt: new Date("2019-09-01")}}.{visita:{$gt: new Date("2019-07-31")}}]}).pretty();
 
 //e. La cantidad total de productos (tipos, no unidades) que se vendieron en un día concreto.
-db.cliente.find().count();
+db.cliente.aggregate([ {"$group" : {_id:"$tipo", count:{$sum:1}}} ])
+//o
+db.cliente.aggregate([ {"$group" : {_id:tipo, count:{$sum:1}}} ])
+
+//falta revisar no estoy seguro que sirve
 
 //f. El nombre de los productos que se vendieron la semana pasada (día inicial: lunes)
-db.cliente.find().pretty();
+db.cliente.find({producto},{$and:[{visita:{$lt: new Date("2019-09-09")}}.{visita:{$gt: new Date("2019-09-02")}}]}).pretty();
