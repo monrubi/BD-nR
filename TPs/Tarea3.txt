@@ -18,6 +18,34 @@ db.cliente.insert(c3);
 db.cliente.insert(c4);
 db.cliente.insert(c5);
 
+//crear los documentos (tuplas) para cliente
+c1 = {nombre: 'N1', sucursal: 1, visita: new Date("2019-09-02"), producto: 'carne', tipo: 'comestibles', cantidad: 7};
+c2 = {nombre: 'N2', sucursal: 2, visita: new Date("2019-08-09"), producto: 'microondas', tipo: 'electrod', cantidad: 1};
+c3 = {nombre: 'N3', sucursal: 3, visita: new Date("2019-07-02"), producto: 'croquetas', tipo: 'mascotas', cantidad: 2};
+c4 = {nombre: 'N4', sucursal: 4, visita: new Date("2019-06-07"), producto: 'sandia', tipo: 'comestibles', cantidad: 40};
+c5 = {nombre: 'N5', sucursal: 5, visita: new Date("2019-05-10"), producto: 'four loko', tipo: 'comestibles', cantidad: 10};
+
+//insertarlos a la colleccion
+db.cliente.insert(c1);
+db.cliente.insert(c2);
+db.cliente.insert(c3);
+db.cliente.insert(c4);
+db.cliente.insert(c5);
+
+//crear los documentos (tuplas) para cliente
+c1 = {nombre: 'N1', sucursal: 3, visita: new Date("2019-08-02"), producto: 'helado', tipo: 'comestibles', cantidad: 15};
+c2 = {nombre: 'N2', sucursal: 4, visita: new Date("2019-09-09"), producto: 'licuadora', tipo: 'electrod', cantidad: 2};
+c3 = {nombre: 'N3', sucursal: 1, visita: new Date("2019-08-02"), producto: 'shampoo', tipo: 'mascotas', cantidad: 5};
+c4 = {nombre: 'N4', sucursal: 5, visita: new Date("2019-09-07"), producto: 'aguacate', tipo: 'comestibles', cantidad: 20};
+c5 = {nombre: 'N5', sucursal: 2, visita: new Date("2019-09-10"), producto: 'tequila', tipo: 'comestibles', cantidad: 12};
+
+//insertarlos a la colleccion
+db.cliente.insert(c1);
+db.cliente.insert(c2);
+db.cliente.insert(c3);
+db.cliente.insert(c4);
+db.cliente.insert(c5);
+
 //Consultas
 //a. La cantidad total de clientes que acudieron a una sucursal dada en una fecha específica.
 db.cliente.find({$and:[{visita: new Date("2019-08-02")}, {sucursal: 1}]}).count();
@@ -26,7 +54,7 @@ db.cliente.find({$and:[{visita: new Date("2019-08-02")}, {sucursal: 1}]}).count(
 db.cliente.find({visita: new Date("2019-08-02")}).count();
 
 //c. Los productos que adquirió un cliente dado en una fecha dada.
-db.cliente.find({&and:[{nombre:'N1'},{visita: new Date("2019-08-02")}]}, {producto:1});
+db.cliente.find({$and:[{nombre:'N1'},{visita: new Date("2019-08-02")}]}, {producto:1});
 
 //d. El nombre de los clientes que acudieron a comprar el mes pasado.
 db.cliente.find({$and:[{visita:{$gte: new Date("2019-08-01")}},{visita:{$lte: new Date("2019-08-31")}}]},{nombre:1})
