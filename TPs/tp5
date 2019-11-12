@@ -14,3 +14,13 @@ where idprov in
   order by nomcomp 
   limit 5) 
 order by pais asc, region desc
+
+--c
+SELECT nomp, precioUnidad*cant as monto
+from cos://us-geo/fpedcli/Productos.csv as prod, 
+  cos://us-geo/fpedcli/DetallePedidos.csv as det, 
+   cos://us-geo/fpedcli/Pedidos.csv as ped
+where prod.idp = det.idp and det.idped=ped.idped 
+  and month(ped.fechaped) = 11 
+  and year(ped.fechaped)=year(current_date)-1
+
