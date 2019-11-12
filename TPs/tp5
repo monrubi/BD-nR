@@ -1,0 +1,2 @@
+--b 
+select pais, region, nomcomp from cos://us-geo/rpedcli/Proveedores.csv where idprov in (select idprov from cos://us-geo/rpedcli/Proveedores.csv where nomcomp like 'M%' or nomcomp like 'm%' order by nomcomp limit 5) order by pais asc, region desc
