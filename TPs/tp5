@@ -1,3 +1,9 @@
+--a
+SELECT nomcomp, cd
+from cos://us-geo/fpedcli/Clientes.csv
+where nomcont < 'D'
+order by cd desc
+
 --b 
 select pais, region, nomcomp 
 from cos://us-geo/rpedcli/Proveedores.csv 
