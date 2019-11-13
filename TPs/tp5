@@ -33,7 +33,7 @@ where idp not in (
   select prod.idp 
   from cos://us-geo/mpedcli/Productos.csv as prod,
   cos://us-geo/mpedcli/DetallePedidos.csv as dp,
-  cos://us-geo/mpedcli/Pedidos_ddmmaaaa.csv as ped
+  cos://us-geo/mpedcli/Pedidos.csv as ped
   where prod.idp = dp.idp and dp.idped = ped.idped and
   month(fechaped)>0 and month(fechaped)<4 and year(fechaped) = year(current_date())
   )
