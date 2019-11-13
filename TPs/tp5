@@ -56,3 +56,12 @@ where emp.idEmpleado = ped.idEmp and year(fechaped)= year(current_date)-2
 group by Nombre, Apellidos
 order by count(idPed) desc
 limit 3
+
+--g 
+SELECT nomcomp, count(ped.idPed) as total_pedidos, sum(cant) as total_unidades, sum(cant*preciounidad) as monto
+from cos://us-geo/fpedcli/Clientes.csv as cli,
+ cos://us-geo/fpedcli/Pedidos.csv as ped,
+ cos://us-geo/fpedcli/DetallePedidos.csv as det
+where cli.idcli = ped.idcli and ped.idped=det.idped and year(fechaped)= year(current_date)-1
+and month(fechaped)=12
+group by nomcomp
