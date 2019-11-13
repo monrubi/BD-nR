@@ -65,3 +65,11 @@ from cos://us-geo/fpedcli/Clientes.csv as cli,
 where cli.idcli = ped.idcli and ped.idped=det.idped and year(fechaped)= year(current_date)-1
 and month(fechaped)=12
 group by nomcomp
+
+--h
+SELECT Nombre, Apellidos, count(idPed)
+from cos://us-geo/fpedcli/Empleados.csv as emp,
+ cos://us-geo/fpedcli/Pedidos.csv as ped
+where emp.idEmpleado = ped.idEmp
+group by Nombre, Apellidos 
+having count(idPed)>40
