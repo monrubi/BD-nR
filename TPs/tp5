@@ -37,3 +37,13 @@ where idp not in (
   where prod.idp = dp.idp and dp.idped = ped.idped and
   month(fechaped)>0 and month(fechaped)<4 and year(fechaped) = year(current_date())
   )
+
+--e 
+SELECT nomcomp, nomcont
+from cos://us-geo/fpedcli/Proveedores.csv 
+where idprov not in (
+  select idprov
+  from cos://us-geo/fpedcli/Productos.csv as prod, 
+  cos://us-geo/fpedcli/Categorias.csv as cat
+  where prod.idcat = cat.idcat and nomcat = 'Lacteos'
+  )
