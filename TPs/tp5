@@ -47,3 +47,12 @@ where idprov not in (
   cos://us-geo/fpedcli/Categorias.csv as cat
   where prod.idcat = cat.idcat and nomcat = 'Lacteos'
   )
+
+--f
+SELECT Nombre, Apellidos, count(idPed)
+from cos://us-geo/fpedcli/Empleados.csv as emp,
+ cos://us-geo/fpedcli/Pedidos.csv as ped
+where emp.idEmpleado = ped.idEmp and year(fechaped)= year(current_date)-2
+group by Nombre, Apellidos
+order by count(idPed) desc
+limit 3
