@@ -98,13 +98,13 @@ and idEmpleado in
 
 --k 
 --creo que esta mal la manera que la hice pero sirve
-select cat.nomcat, count(idp)
-from cos://us-geo/fpedcli/Productos.csv as prod,
-cos://us-geo/fpedcli/Categorias.csv as cat
+select cat.nomcat
+from cos://us-geo/mpedcli/Productos.csv as prod,
+cos://us-geo/mpedcli/Categorias.csv as cat
 where cat.idcat=prod.idcat
 group by cat.nomcat
-order by count(idp)
-limit 1
+order by count(idp) asc
+limit 3
 
 --l
 --este contiene el anterior entonces tambien creo que se hace mal la subconsulta
