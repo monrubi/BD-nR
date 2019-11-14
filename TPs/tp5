@@ -95,9 +95,12 @@ and idEmpleado in
 	  where nomcat='Carnes' and cat.idcat=prod.idcat and
 	  prod.idp=det.idp and det.idped=ped.idped and year(fechaped)=year(current_date)-1
 	) 
-
+--j
+(select NomComp from cos://us-geo/mpedcli/Clientes.csv 
+where pais = 'Mexico' or pais = 'Argentina' or pais = 'Brasil')union(select NomComp from cos://us-geo/mpedcli/Clientes.csv as cli,
+cos://us-geo/mpedcli/Pedidos.csv as ped 
+where cli.idcli = ped.idcli and month(fechaped)>0 and month(fechaped)<4 and year(fechaped) = year(current_date())) 
 --k 
---creo que esta mal la manera que la hice pero sirve
 select cat.nomcat
 from cos://us-geo/mpedcli/Productos.csv as prod,
 cos://us-geo/mpedcli/Categorias.csv as cat
@@ -107,7 +110,6 @@ order by count(idp) asc
 limit 3
 
 --l
---este contiene el anterior entonces tambien creo que se hace mal la subconsulta
 select cat.nomcat, nomp
 from cos://us-geo/fpedcli/Productos.csv as prod,
 cos://us-geo/fpedcli/Categorias.csv as cat
