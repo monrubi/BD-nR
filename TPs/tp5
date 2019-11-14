@@ -73,3 +73,25 @@ from cos://us-geo/fpedcli/Empleados.csv as emp,
 where emp.idEmpleado = ped.idEmp
 group by Nombre, Apellidos 
 having count(idPed)>40
+
+--i
+SELECT Nombre, Apellidos
+from cos://us-geo/fpedcli/Empleados.csv as emp
+where idEmpleado in
+	(select idEmp
+	  from cos://us-geo/fpedcli/Pedidos.csv as ped,
+	  cos://us-geo/fpedcli/DetallePedidos.csv as det,
+	  cos://us-geo/fpedcli/Productos.csv as prod,
+	  cos://us-geo/fpedcli/Categorias.csv as cat
+	  where nomcat='Carnes' and cat.idcat=prod.idcat and
+	  prod.idp=det.idp and det.idped=ped.idped and year(fechaped)=year(current_date)
+	) 
+and idEmpleado in 
+	(select idEmp
+	  from cos://us-geo/fpedcli/Pedidos.csv as ped,
+	  cos://us-geo/fpedcli/DetallePedidos.csv as det,
+	  cos://us-geo/fpedcli/Productos.csv as prod,
+	  cos://us-geo/fpedcli/Categorias.csv as cat
+	  where nomcat='Carnes' and cat.idcat=prod.idcat and
+	  prod.idp=det.idp and det.idped=ped.idped and year(fechaped)=year(current_date)-1
+	) 
