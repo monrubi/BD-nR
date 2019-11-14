@@ -95,3 +95,12 @@ and idEmpleado in
 	  where nomcat='Carnes' and cat.idcat=prod.idcat and
 	  prod.idp=det.idp and det.idped=ped.idped and year(fechaped)=year(current_date)-1
 	) 
+
+--k
+select cat.nomcat, count(idp)
+from cos://us-geo/fpedcli/Productos.csv as prod,
+cos://us-geo/fpedcli/Categorias.csv as cat
+where cat.idcat=prod.idcat
+group by cat.nomcat
+order by count(idp)
+limit 1
