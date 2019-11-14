@@ -96,7 +96,8 @@ and idEmpleado in
 	  prod.idp=det.idp and det.idped=ped.idped and year(fechaped)=year(current_date)-1
 	) 
 
---k
+--k 
+--creo que esta mal la manera que la hice pero sirve
 select cat.nomcat, count(idp)
 from cos://us-geo/fpedcli/Productos.csv as prod,
 cos://us-geo/fpedcli/Categorias.csv as cat
@@ -104,3 +105,18 @@ where cat.idcat=prod.idcat
 group by cat.nomcat
 order by count(idp)
 limit 1
+
+--l
+--este contiene el anterior entonces tambien creo que se hace mal la subconsulta
+select cat.nomcat, nomp
+from cos://us-geo/fpedcli/Productos.csv as prod,
+cos://us-geo/fpedcli/Categorias.csv as cat
+where cat.idcat=prod.idcat and nomcat in (
+  	select cat.nomcat
+	from cos://us-geo/fpedcli/Productos.csv as prod,
+	cos://us-geo/fpedcli/Categorias.csv as cat
+	where cat.idcat=prod.idcat
+	group by cat.nomcat
+	order by count(idp)
+	limit 1
+  )
